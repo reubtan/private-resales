@@ -141,6 +141,7 @@ floor_area_ranges = {
 
 # Initialize Dash app
 app = dash.Dash(__name__)
+server = app.server
 
 app.layout = html.Div([
     html.H1("Condominium and Apartment Resale Gain/Loss Dashboard", style={"textAlign": "center"}),
