@@ -5,6 +5,8 @@ import plotly.express as px
 import re
 from flask_caching import Cache
 
+pd.options.mode.chained_assignment = None
+
 result_private = pd.read_csv("result_private_apartment_exec.csv")
 app3 = dash.Dash(__name__)
 server = app3.server
