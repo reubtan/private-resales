@@ -141,7 +141,6 @@ def toggle_filter_mode(filter_mode):
      Input("floor-area-dropdown", "value")]
 )
 
-@cache.memoize()
 def update_filters(property_type, filter_mode, planning_area, project_name, floor_area_range):
     # Filter by property type
     filtered_df = result_private[result_private["grouped_property_type"] == property_type]
