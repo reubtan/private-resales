@@ -11,11 +11,6 @@ result_private = pd.read_csv("result_private_apartment_exec.csv")
 app3 = dash.Dash(__name__)
 server = app3.server
 
-cache = Cache(app3.server, config={
-    "CACHE_TYPE": "SimpleCache",  # Store data in memory
-    "CACHE_DEFAULT_TIMEOUT": 300  # Cache timeout in seconds
-})
-
 floor_area_ranges = {
     "< 600 sqft": (0, 600),
     "600-850 sqft": (600, 850),
@@ -141,7 +136,6 @@ def toggle_filter_mode(filter_mode):
      Input("floor-area-dropdown", "value")]
 )
 
-@cache.memoize()
 def update_filters(property_type, filter_mode, planning_area, project_name, floor_area_range):
     # Filter by property type
     filtered_df = result_private[result_private["grouped_property_type"] == property_type]
