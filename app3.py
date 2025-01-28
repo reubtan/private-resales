@@ -27,6 +27,12 @@ property_type_map = {
 result_private["grouped_property_type"] = result_private["property_type"].map(property_type_map)
 
 app3.layout = html.Div([
+    html.Div([
+        html.Div(
+            id="last-updated",
+            style={"textAlign": "left", "fontSize": "20px", "marginLeft": "10x", "marginTop": "10px"}
+        )
+    ]),
     html.H1("Private Resale Gain/Loss Dashboard", style={"textAlign": "center"}),
 
     # Dropdown for property type
@@ -101,6 +107,20 @@ app3.layout = html.Div([
 def remove_prefix(project_name):
     # Use regex to remove 'A ' or 'THE ' at the start of the string (case-insensitive)
     return re.sub(r'^(a|the)\s+', '', project_name, flags=re.IGNORECASE)
+
+@app3.callback(
+    Output("last-updated", "children"),
+    [Input("property-type-dropdown", "value")]  # This triggers the callback when the dropdown is changed
+)
+
+def update_last_updated_date(_):
+    # Find the most recent Sell Date
+    if not result_private.empty:
+        last_sell_date = pd.to_datetime(result_private["sold_at"].max()).strftime('%Y-%m-%d')
+    else:
+        last_sell_date = "N/A"
+
+    return f"Last Updated: {last_sell_date}"
 
 @app3.callback(
     [Output("planning-area-container", "style"),
